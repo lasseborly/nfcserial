@@ -122,7 +122,14 @@
           const nfcPermissionStatus = await navigator.permissions.query({
             name: "nfc",
           });
-          if (nfcPermissionStatus.state !== "granted") {
+          const clipoardPermissionStatus = await navigator.permissions.query({
+            name: "clipboard-write",
+            allowWithoutGesture: true,
+          });
+          if (
+            nfcPermissionStatus.state !== "granted" &&
+            clipoardPermissionStatus.state !== "granted"
+          ) {
             notyf.success("Click the dot to start scanning.");
             permissionsBtn.addEventListener("click", onClick);
           } else {
