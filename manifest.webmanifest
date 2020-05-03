@@ -2,7 +2,7 @@
   "name": "NFC Serial Reader",
   "short_name": "NFCSerialReader",
   "start_url": ".",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#454a59",
   "description": "Reads a NFC Tags Serial number and writes it to the clipboard.",
