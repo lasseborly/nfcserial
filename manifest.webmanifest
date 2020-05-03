@@ -4,6 +4,7 @@
   "start_url": ".",
   "display": "fullscreen",
   "background_color": "#fff",
+  "theme_color": "#454a59",
   "description": "Reads a NFC Tags Serial number and writes it to the clipboard.",
   "icons": [
     {
