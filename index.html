@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NFC Serial</title>
+    <link rel="icon" href="/images/nfc_48.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="stylesheet" href="https://unpkg.com/notyf@3.6.0/notyf.min.css" />
     <style>
@@ -118,6 +119,7 @@
           );
         };
       }
+
       async function main() {
         if ("NDEFReader" in window && navigator.clipboard) {
           const nfcPermissionStatus = await navigator.permissions.query({
@@ -133,7 +135,33 @@
           notyf.error("NFC not available.");
         }
       }
+
       main();
+
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", async () => {
+          const { Workbox } = await import(
+            "https://storage.googleapis.com/workbox-cdn/releases/6.2.0/workbox-window.prod.mjs"
+          );
+
+          const workbox = new Workbox("/service-worker.js");
+
+          workbox.addEventListener("waiting", () => {
+            notyf.error(
+              "Close all tabs, running the application, to update it."
+            );
+          });
+
+          workbox.addEventListener("activated", (event) => {
+            const firstTime = !event.isUpdate;
+            if (firstTime) {
+              notyf.success("Enjoy offline!");
+            }
+          });
+
+          workbox.register();
+        });
+      }
     </script>
   </body>
 </html>
